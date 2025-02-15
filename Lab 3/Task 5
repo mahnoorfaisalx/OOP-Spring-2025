@@ -1,0 +1,123 @@
+#include <iostream> 
+#include <string> 
+
+using namespace std; 
+
+class MusicPlayer{
+
+    private: 
+
+    string playlist[100];
+    string currentlyPlaingSong; 
+    int count;
+
+    public: 
+    void setDetails() {
+
+        for (int i = 0; i < 100; i++) {
+            playlist[i] = " ";
+        }
+
+        count = 0;
+        currentlyPlaingSong = " ";
+
+    }
+
+    void addSong(string song) {
+
+        if (count < 100) {
+
+            playlist[count] = song; 
+            count++;
+            cout << "Song added to your playlist, thank you!"<<endl;
+
+        } else {
+            cout << "Playlist is full, sorry!" << endl;
+        }
+    }
+
+    void removeSong(string song) {
+        
+        int i = 0; 
+        bool found = false; 
+    
+        while (i < count && found == false) {
+            if (playlist[i] == song) {
+                found = true;
+                
+                for (int j = i; j < count - 1; j++) {
+                    playlist[j] = playlist[j + 1];
+                }
+    
+                playlist[count - 1] = " ";
+    
+                count--; 
+                cout << "Song has been removed from your playlist!" << endl;
+            } else {
+                i++;
+            }
+        }
+    
+        if (found == false) {
+            cout << "Sorry, the song isn't present in your playlist!" << endl;
+        }
+    }
+    
+
+    void playSong(string song) {
+
+        int i = 0;
+
+        bool found = false;
+
+        while (i < count && found == false) {
+
+            if (playlist[i] == song) {
+                cout << "Playing " << song << endl;
+                found = true;
+            } else {
+                i++;
+            }
+
+        }
+        if (found == false) {
+            cout << "Song not found in your playlist, sorry!" <<endl;
+        }
+
+    }
+
+
+    void displayPlaylist() {
+
+        if (count == 0) {
+
+            cout << "Your playlist is empty. Add some songs!" <<endl;
+            return;
+        }
+
+        cout << "Your playlist: " << endl;
+
+        for (int i = 0; i < count; i++) {
+            cout << playlist[i] << endl;
+        }
+
+    }
+
+};
+
+
+int main() {
+
+    MusicPlayer myPlaylist;
+
+    myPlaylist.setDetails();
+
+    myPlaylist.addSong("Thank you, next");
+    myPlaylist.displayPlaylist();
+
+    myPlaylist.removeSong("Thank you, next");
+    myPlaylist.displayPlaylist();
+    myPlaylist.removeSong("Thank you, next");
+
+
+}
