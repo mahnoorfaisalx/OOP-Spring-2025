@@ -1,1 +1,98 @@
 
+#include <iostream> 
+#include <string>
+using namespace std; 
+
+class Wallet{
+
+        private: 
+
+        string ownerName; 
+        float totalBalance; 
+        char transactionHistory[100][100];
+        int count; 
+
+    public: 
+
+    void setDetails(string name, float balance) {
+        ownerName = name;
+        totalBalance = balance; 
+        count = 0; 
+
+    }
+
+    void addMoney(float amount) {
+        if (amount > 0) {
+            totalBalance = totalBalance + amount;
+            
+            if (count < 100) {
+
+                strcpy(transactionHistory[count], (to_string(amount) + " added.").c_str());
+                count++;
+            }
+
+            cout << "Rs" << amount << " added to wallet.\n";
+        } else {
+            cout << "Invalid amount!\n";
+        }
+    }
+
+    void spendMoney(float userAmount) {
+
+        if (userAmount > 0 && userAmount <= totalBalance) {
+            totalBalance = totalBalance - userAmount;
+        
+
+        if (count < 100) {
+            strcpy(transactionHistory[count], (to_string(userAmount) + " spent.").c_str());
+            count++;
+        }
+        cout << "Amount spent from wallet" << endl;
+
+    }  else {
+        cout <<"Insufficient balance :((" <<endl;
+
+    }
+
+
+    
+
+    }
+
+    void displayTransactionHistory() {
+        cout << "Here's your transaction history: " << endl; 
+
+        if (count == 0) {
+            cout << "You haven't made any transactions yet.";
+        } else {
+            for (int i = 0; i < count; i++) {
+                cout << transactionHistory[i] <<endl;
+            }
+        }
+    }
+
+    void checkBalance(){
+        cout << "Current Balance: Rs" << totalBalance << endl;
+
+    }
+
+
+
+};
+
+
+int main() {
+    Wallet saadWallet;
+
+    saadWallet.setDetails("Saad", 5000);  
+
+    saadWallet.addMoney(2000);
+    saadWallet.spendMoney(1500);
+    saadWallet.spendMoney(1000);
+    saadWallet.addMoney(500);
+
+    saadWallet.displayTransactionHistory();
+    saadWallet.checkBalance();
+
+    return 0;
+}
