@@ -1,0 +1,136 @@
+#include <iostream> 
+#include <string>
+using namespace std;
+
+class Library{
+
+    private: 
+
+    string bookList[100];  
+    string borrowedBooks[100];
+    bool availableBooks[100];
+    int counter; 
+
+    public: 
+
+    void setDetails(){
+        counter = 0; 
+        int i; 
+        for (i = 0; i < 100; i++){
+            bookList[i] = " ";
+            borrowedBooks[i] = " ";
+            availableBooks[i] = false;
+        }
+    }
+
+    void addBooks(string userBook){
+        if (counter < 100) {
+            bookList[counter] = userBook;
+            availableBooks[counter] = true;
+            counter++;
+
+        } else {
+
+            cout << "Library is full, sorry!" << endl;
+
+        }
+         
+    }
+    
+    void BorrowBooks(string userBook, string userName) {
+        int index = 0; 
+        bool found = false;
+
+        while (index < counter && found == false) {
+            if (bookList[index] == userBook) {
+                found = true;
+
+                if (availableBooks[index] == true) {
+                    availableBooks[index] = false; 
+                    borrowedBooks[index] = userName;
+                    cout << "You've borrowed " << userBook << endl;
+                } else {
+                    cout << userBook << "has already been borrowed, sorry!" << endl; 
+                }
+            } else {
+                index++;
+            }
+        }
+
+        if (found == false) {
+            cout <<"We don't have your requested book. Sorry!" << endl;
+        }
+
+    }
+
+    void returnBook(string userBook) {
+
+        int index = 0;
+        bool found = false; 
+
+        while (index < counter && found == false) {
+            if (bookList[index] == userBook) {
+                found = true;
+                borrowedBooks[index] = " ";
+                availableBooks[index] = true; 
+                cout << "Thank you for returning the book!" << endl;
+
+            } else {
+                index++;
+            }
+
+        }
+
+
+        if (found == false) {
+            cout << "Book not found in the borrowed list" << endl;
+        }
+    }
+
+    void displayBooks() {
+
+        int i = 0;
+
+        cout << "Book list: " << endl;
+
+        for (i = 0; i < counter; i++) {
+            
+            if (availableBooks[i] == true) {
+                cout << bookList[i] << " : Available!" << endl; 
+            } else {
+                cout << bookList[i] << " : Borrowed by " << borrowedBooks[i] << endl;
+
+            }
+
+        }
+
+    }
+
+};
+
+int main() {
+
+    Library  myLibrary; 
+
+    myLibrary.setDetails();
+
+    myLibrary.addBooks("Harry Potter");
+    myLibrary.addBooks("All the Bright Places");
+    myLibrary.displayBooks();
+
+    myLibrary.BorrowBooks("Harry Potter", "Mahnoor");
+    myLibrary.BorrowBooks("The Hobbit", "Mahnoor");
+    myLibrary.BorrowBooks("Harry Potter", "Hadia");
+    myLibrary.displayBooks();
+    myLibrary.returnBook("Harry Potter");
+    myLibrary.displayBooks();
+
+
+
+
+
+
+
+
+
+}
