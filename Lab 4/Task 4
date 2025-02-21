@@ -29,14 +29,6 @@ class Car {
         cout << "Destructor called! " << brand << " "<< model << " is removed!" <<endl;
     }
 
-    void setCarDetails(string b, string m, float rp) {
-
-        brand = b; 
-        model = m; 
-        rentalPrice = rp; 
-
-
-    }
 
     void displayDetails() {
 
