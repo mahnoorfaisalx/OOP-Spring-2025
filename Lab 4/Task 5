@@ -1,0 +1,125 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+
+class Car {
+
+    string brand; 
+    string model; 
+    float rentalPrice;
+    bool availabilityStatus; 
+    float totalRevenue; 
+    string carID;
+    
+
+    public: 
+
+    Car(string id, string b, string m, float rp, bool status)
+    : carID(id), brand(b), model(m), rentalPrice(rp), availabilityStatus(status), totalRevenue(0.0) {}
+
+
+
+    ~Car() {
+        cout << "Destructor called! " << brand << " "<< model << " is removed!" <<endl;
+    }
+
+    void displayDetails() {
+
+
+        cout << "Car ID: " << carID << endl;
+        cout << "Brand: " << brand << endl;
+        cout << "Model: " << model << endl;
+        cout << "Rental Price: " << rentalPrice << " RS" << endl; 
+
+        if (availabilityStatus == true) {
+            cout << "Available: Yes" << endl;
+        } else {
+            cout << "Available: No" << endl;
+        }
+
+        cout << "Total Revenue: " << totalRevenue << " RS" << endl;
+
+
+
+    }
+
+    bool isCarAvailable() {
+        return availabilityStatus;
+    }
+
+    float applyDiscount(int days) {
+        
+        float price = 0.0; 
+
+    
+        price = rentalPrice * days; 
+    
+        if (days > 10) {
+            price *= 0.90; 
+        } else if (days > 5) {
+            price *= 0.95; 
+        }
+    
+        return price;
+
+    }
+
+    void rent() {
+        if (availabilityStatus == true)  {
+            availabilityStatus = false;
+            cout << "Car has been rented!" << endl;
+        } else {
+            cout << "Car has been rented already, sorry!" << endl;
+            return; 
+        }
+
+        int days = 0; 
+
+        while (days <= 0) {
+            cout << "Enter how many days you'd like to rent the car: "; 
+            cin >> days;
+        }
+
+        float finalPrice = applyDiscount(days); 
+        totalRevenue = totalRevenue + finalPrice;  
+
+        cout << "Car has been rented for " << days << " days. Total price after discount: " << finalPrice << " RS" << endl;
+
+
+
+
+    }
+
+    void returnCar() {
+
+        if (availabilityStatus == true) {
+            cout << "Car is already available!" << endl;
+        } else {
+            availabilityStatus = true; 
+            cout << "Car has been returned" << endl;
+        }
+
+    }
+
+};
+
+int main() {
+
+    Car myCar("NU-1212", "Nissan", "Patrol", 100000, true);
+
+    cout << "Original Car Details:" << endl;
+    myCar.displayDetails();
+
+    myCar.rent();
+
+    cout << "Updated Car Details:" << endl;
+    myCar.displayDetails();
+
+    myCar.returnCar();
+    myCar.displayDetails();
+    
+    return 0;
+
+
+}
