@@ -1,1 +1,60 @@
+#include <iostream>
+using namespace std;
+
+class Level {
+private:
+    string levelName;
+    int difficulty;
+
+public:
+    Level(string name, int diff) {
+        levelName = name;
+        difficulty = diff;
+    }
+
+    void displayLevel() {
+        cout << "- Level: " << levelName << " (Difficulty: " << difficulty << ")" << endl;
+    }
+};
+
+class VideoGame {
+private:
+    string title;
+    string genre;
+    Level* levels[3];  
+    int levelCount;
+
+public:
+    VideoGame(string t, string g) : title(t), genre(g), levelCount(0) {
+
+        levels[0] = new Level("Beginner's Quest", 1);
+        levels[1] = new Level("Warrior's Path", 3);
+        levels[2] = new Level("Final Boss", 5);
+        levelCount = 3;
+    }
+
+    ~VideoGame() {
+
+        for (int i = 0; i < levelCount; i++) {
+            delete levels[i];
+        }
+        cout << "Game '" << title << "' and its levels have been deleted!" << endl;
+    }
+
+    void displayGame() {
+        cout << "Game Title: " << title << endl;
+        cout << "Genre: " << genre << endl;
+        cout << "Levels:" << endl;
+        for (int i = 0; i < levelCount; i++) {
+            levels[i]->displayLevel();
+        }
+    }
+};
+
+int main() {
+    VideoGame game("Fortnite", "Action");
+    game.displayGame();
+
+    return 0;  
+}
 
