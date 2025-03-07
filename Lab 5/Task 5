@@ -1,1 +1,103 @@
+#include <iostream> 
+using namespace std; 
 
+class Doctor {
+    
+    private: 
+
+    string name; 
+    string specialization;
+    string experience;
+
+    public: 
+
+    Doctor(string n, string s, int e) {
+        name = n; 
+        specialization = s; 
+        experience = e; 
+    }
+
+    string getName() {
+        return name;
+    }
+
+    string getSpecialization() {
+        return specialization;
+    }
+
+    string getExperience(){
+        return experience;
+    }
+
+    void displayDoctor() {
+        
+        cout << "Doctor Name: " << name << endl;
+        cout << "Specialization: " << specialization << endl;
+        cout << "Experience: " << experience << " years" << endl;
+   
+    }
+
+};
+
+class Hospital{
+
+    private: 
+
+    string hospitalName; 
+    string location;
+    Doctor* doctors[5];  
+    int count; 
+
+    public: 
+
+    Hospital(string hN, string l) {
+
+        hospitalName = hN; 
+        location = l; 
+        count = 0;
+    }
+
+    void assign(Doctor*d) {
+        if (count < 5) {
+            doctors[count++] = d;
+         } else {
+            cout << "Maximum doctors assigned to this hospital!" << endl;
+         }
+    }
+
+    void displayHospital() {
+        
+        cout << "Hospital Name: " << hospitalName << endl;
+        cout << "Location: " << location << endl;
+        cout << "Doctors Assigned: " << endl;
+        
+        for (int i = 0; i < count; i++) {
+            cout << "- " << doctors[i]->getName() 
+                 << " (" << doctors[i]->getSpecialization() 
+                 << ", " << doctors[i]->getExperience() << " years experience)" << endl;
+        }
+    }
+};
+
+
+int main() {
+
+    Doctor d1("Dr. Wars", "Cardiologist", 15);
+    Doctor d2("Dr. Summi", "Neurologist", 10);
+    Doctor d3("Dr. Sara", "Orthopedic", 7);
+
+    Hospital h1("Agha Khan", "Karachi");
+    Hospital h2("City Hopsital", "Malaysia");
+
+    h1.assign(&d1);
+    h1.assign(&d2);
+    h2.assign(&d1);
+    h2.assign(&d3);
+
+    cout << "Hospital Details: " << endl;
+    h1.displayHospital();
+    cout << endl;
+    h2.displayHospital();
+
+    return 0;
+}
