@@ -1,1 +1,58 @@
+#include <iostream> 
+using namespace std; 
+
+class Apartment {
+
+    private: 
+
+    string uniqueID;
+    string address; 
+    char* name;
+
+    public:
+
+    Apartment(string u, string a, const char* n) {
+        uniqueID = u; 
+        address = a;
+        name = new char[strlen(n) + 1];
+        strcpy(name, n);
+    }
+
+    Apartment(const Apartment& other) {
+        uniqueID = other.uniqueID;
+        address = other.address;
+        name = other.name;
+    }
+
+ 
+
+    void displayDetails() {
+        cout << "ID: " << uniqueID <<endl;
+        cout << "Address: " << address <<endl;
+        cout << "Name: " << name <<endl;
+
+    }
+
+    ~Apartment() {
+    }
+};
+
+    int main() {
+
+        Apartment a1("609", "City Centre Residency", "Mahnoor Faisal");
+
+        Apartment a2(a1);
+
+        cout << "Original Apartment: " <<endl; 
+        a1.displayDetails();
+        cout << "Copied Apartment: " <<endl;
+        a2.displayDetails();
+
+    }
+
+
+
+
+
+
 
