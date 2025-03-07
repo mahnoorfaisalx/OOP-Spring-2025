@@ -1,1 +1,91 @@
 
+#include <iostream> 
+using namespace std; 
+
+class Project {
+    
+    private: 
+
+    string title; 
+    string deadline;
+
+    public: 
+
+    Project(string t, string d) {
+        title = t; 
+        deadline = d;
+    }
+
+    string getTitle() {
+        return title;
+    }
+
+    string getDeadline() {
+        return deadline;
+    }
+
+    void displayProject() {
+        cout << "Project Title: " << title << endl;
+        cout << "Deadline: " << deadline << endl;
+    }
+
+};
+
+class Employee{
+
+    private: 
+
+    string name; 
+    string designation;
+    Project* projects[5]; 
+    int count; 
+
+    public: 
+
+    Employee(string n, string d) {
+
+        name = n; 
+        designation = d; 
+        count = 0;
+    }
+
+    void assign(Project*p) {
+        if (count < 5) {
+            projects[count++] = p;
+         } else {
+            cout << "Maximum projects assigned!" << endl;
+         }
+    }
+
+    void displayEmployee() {
+        cout << "Employee Name: " << name << endl;
+        cout << "Designation: " << designation << endl;
+        cout << "Projects Assigned: " << endl;
+        for (int i = 0; i < count; i++) {
+            cout << "-" << projects[i]->getTitle() << " (Due Date: " <<projects[i]->getDeadline() << ")"<< endl;
+
+        }
+    }
+
+
+};
+
+
+
+int main() {
+    Project p1("Article One - MUO", "April 21");
+    Project p2("Article Two - SlashGear", "February 28");
+
+    Employee e1("Mahnoor", "Tech Journalist");
+    Employee e2("Hadia", "Influencer");
+
+    e1.assign(&p1);
+    e1.assign(&p2);
+    e2.assign(&p1);
+
+    cout << "Employee Details: " << endl;
+    e1.displayEmployee();
+    cout << endl;
+    e2.displayEmployee();
+
+}
