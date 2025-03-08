@@ -1,1 +1,90 @@
+#include <iostream>
+using namespace std; 
 
+class Person {
+
+    public: 
+
+    string name; 
+    int age; 
+
+    Person(string n, int a) {
+        name= n; 
+        age = a; 
+    }
+
+    void displayDetails() {
+        cout << "Name: " << name << endl;
+        cout << "Age: " << age << endl;
+    }
+
+};
+
+class Teacher: public Person {
+
+    public: 
+
+    string subject;
+
+    Teacher(string n, int a, string s) : Person(n, a) {
+        subject = s;
+    }
+
+    void displayDetails(){
+        Person::displayDetails();
+        cout << "Subject: " << subject << endl; 
+    }
+
+};
+
+class Researcher : public Teacher {
+    public: 
+    string researchArea; 
+
+    Researcher(string n, int a, string s, string r): Teacher (n, a, s) {
+        researchArea = r;
+    }
+
+    void displayDetails() {
+        Teacher::displayDetails();
+        cout << "Research Area: " << researchArea << endl;
+    }
+
+};
+
+class Professor: public Researcher {
+    public: 
+    int publications; 
+
+    Professor(string n, int a, string s, string r, int p) : Researcher (n, a, s, r) {
+        publications = p;
+    }
+
+    void displayDetails() {
+        Researcher::displayDetails();
+
+        cout << "Number of publications: " << publications;
+    }
+};
+
+
+int main() {
+    
+    string name, subject, researchArea;
+    int publications,age;
+
+    cout << "Enter name: ";
+    cin >> name;
+    cout << "Enter age: ";
+    cin >> age;
+    cout << "Enter subject: ";
+    cin >> subject;
+    cout << "Enter research area: ";
+    cin >> researchArea;
+    cout << "Enter num of publications: ";
+    cin >> publications;
+
+    Professor p1(name, age, subject, researchArea, publications);
+    p1.displayDetails();
+
+}
