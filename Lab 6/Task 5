@@ -1,1 +1,83 @@
+#include <iostream> 
+using namespace std; 
 
+class Device {
+
+    public: 
+
+    int deviceID;
+    bool status; 
+
+    Device(int id, bool s) {
+        deviceID = id; 
+        status = s;
+    }
+
+    void displayDetails() {
+        cout << "Device ID: " << deviceID << endl; 
+        cout << "Status: " << status << endl; 
+    }
+
+};
+
+class SmartPhone: public Device {
+
+    public: 
+
+    float screenSize; 
+
+    SmartPhone(int id, bool s, float ss): Device(id, s) {
+        screenSize = ss; 
+    }
+
+    void displayDetails() {
+        
+        Device::displayDetails();
+
+        cout << "Screen Size: " << screenSize << endl;
+
+    }
+
+};
+
+class SmartWatch: public Device {
+   
+    public: 
+
+    bool heartRateMonitor; 
+
+    SmartWatch(int id, bool s, bool h): Device(id, s) {
+        heartRateMonitor = h; 
+    }
+
+    void displayDetails() {
+
+        cout << "Heart Rate Monitor: " << heartRateMonitor << endl;
+
+    }
+
+};
+
+class SmartWearable: public SmartPhone, public SmartWatch {
+
+    public: 
+    int stepCounter; 
+
+    SmartWearable(int id, bool s, float ss, bool h, int sc) : SmartPhone(id, s, ss), SmartWatch(id,s,h){
+        stepCounter = sc;
+    }
+
+    void displayDetails() {
+        SmartPhone::displayDetails();
+        SmartWatch::displayDetails();
+
+        cout << "Step Counter: " << stepCounter << endl;
+    }
+
+
+};
+
+int main() {
+    SmartWearable s1(1001,true, 10.1, true, 111);
+    s1.displayDetails();
+}
