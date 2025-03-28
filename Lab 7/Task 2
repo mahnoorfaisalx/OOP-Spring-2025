@@ -1,0 +1,117 @@
+#include <iostream>
+using namespace std;
+
+class Product {
+public:
+    int productID;
+    string productName;
+    float price;
+    int stockQuantity;
+
+    Product(int pID, string pN, float p, int sQ) {
+        productID = pID;
+        productName = pN;
+        price = p;
+        stockQuantity = sQ;
+    }
+
+    void applyDiscount() {
+        price -= price * 0.1;
+    }
+
+    float calculateTotalPrice(int quantity) {
+        return price * quantity;
+    }
+
+    void displayProductInfo() {
+        cout << "Product ID: " << productID << endl;
+        cout << "Product Name: " << productName << endl;
+        cout << "Price: $" << price << endl;
+        cout << "Stock Quantity: " << stockQuantity << endl;
+    }
+};
+
+class Electronics : public Product {
+public:
+    int warrantyPeriod;
+    string brand;
+
+    Electronics(int pID, string pN, float p, int sQ, int wP, string b) : Product(pID, pN, p, sQ) {
+        warrantyPeriod = wP;
+        brand = b;
+    }
+
+    void displayProductInfo() {
+        Product::displayProductInfo();
+        cout << "Warranty Period: " << warrantyPeriod << " years" << endl;
+        cout << "Brand: " << brand << endl;
+    }
+};
+
+class Clothing : public Product {
+public:
+    string size;
+    string color;
+    string fabricMaterial;
+
+    Clothing(int pID, string pN, float p, int sQ, string s, string c, string fM) : Product(pID, pN, p, sQ) {
+        size = s;
+        color = c;
+        fabricMaterial = fM;
+    }
+
+    void applyDiscount() {
+        price -= price * 0.2;
+    }
+};
+
+class FoodItem : public Product {
+public:
+    string expirationDate;
+    int calories;
+
+    FoodItem(int pID, string pN, float p, int sQ, string eD, int c) : Product(pID, pN, p, sQ) {
+        expirationDate = eD;
+        calories = c;
+    }
+
+    float calculateTotalPrice(int quantity) {
+        if (quantity > 10) {
+            return (price * quantity) * 0.9;
+        }
+        return price * quantity;
+    }
+};
+
+class Book : public Product {
+public:
+    string author;
+    string genre;
+
+    Book(int pID, string pN, float p, int sQ, string a, string g) : Product(pID, pN, p, sQ) {
+        author = a;
+        genre = g;
+    }
+
+    void displayProductInfo() {
+        Product::displayProductInfo();
+        cout << "Author: " << author << endl;
+        cout << "Genre: " << genre << endl;
+    }
+};
+
+int main() {
+    Electronics laptop(201, "Laptop", 999.99, 5, 2, "Dell");
+    Clothing tshirt(202, "T-Shirt", 19.99, 50, "M", "Red", "Cotton");
+    FoodItem apple(203, "Apple", 1.5, 100, "2025-04-01", 95);
+    Book novel(204, "Mystery Novel", 14.99, 20, "John Doe", "Mystery");
+
+    laptop.displayProductInfo();
+    tshirt.applyDiscount();
+    tshirt.displayProductInfo();
+    apple.displayProductInfo();
+    cout << "Total Price for 12 Apples: $" << apple.calculateTotalPrice(12) << endl;
+    novel.displayProductInfo();
+    
+    return 0;
+}
