@@ -1,0 +1,146 @@
+#include <iostream>
+using namespace std;
+
+class Ticket {
+
+    public:
+
+    int ticketID;
+    string passengerName;
+    double price;
+    string date;
+    string destination;
+
+    Ticket(int t, string p, double pr, string d, string dest) {
+        ticketID = t;
+        passengerName = p;
+        price = pr;
+        date = d;
+        destination = dest;
+    }
+
+    void reserve() {
+        cout << "Ticket reserved for " << passengerName << endl;
+    }
+
+    void cancel() {
+        cout << "Ticket canceled for " << passengerName << endl;
+    }
+
+    void displayTicketInfo() {
+        cout << "Ticket ID: " << ticketID << endl;
+        cout << "Passenger Name: " << passengerName << endl;
+        cout << "Price: $" << price << endl;
+        cout << "Date: " << date << endl;
+        cout << "Destination: " << destination << endl;
+    }
+};
+
+class FlightTicket : public Ticket {
+
+    public:
+
+    string airlineName;
+    string flightNumber;
+    string seatClass;
+
+    FlightTicket(int t, string p, double pr, string d, string dest, string a, string f, string s)
+        : Ticket(t, p, pr, d, dest) {
+        airlineName = a;
+        flightNumber = f;
+        seatClass = s;
+    }
+
+    void displayTicketInfo() {
+        Ticket::displayTicketInfo();
+        cout << "Airline: " << airlineName << endl;
+        cout << "Flight Number: " << flightNumber << endl;
+        cout << "Seat Class: " << seatClass << endl;
+    }
+};
+
+class TrainTicket : public Ticket {
+
+    public:
+
+    string trainNumber;
+    string coachType;
+    string departureTime;
+
+    TrainTicket(int t, string p, double pr, string d, string dest, string tn, string c, string dt)
+        : Ticket(t, p, pr, d, dest) {
+        trainNumber = tn;
+        coachType = c;
+        departureTime = dt;
+    }
+
+    void reserve() {
+        Ticket::reserve();
+        cout << "Seat auto-assigned for train ticket." << endl;
+    }
+};
+
+class BusTicket : public Ticket {
+
+    public:
+
+    string busCompany;
+    int seatNumber;
+
+    BusTicket(int t, string p, double pr, string d, string dest, string bc, int sn)
+        : Ticket(t, p, pr, d, dest) {
+        busCompany = bc;
+        seatNumber = sn;
+    }
+
+    void cancel() {
+        Ticket::cancel();
+        cout << "Last-minute refund processed." << endl;
+    }
+};
+
+class ConcertTicket : public Ticket {
+
+    public:
+
+    string artistName;
+    string venue;
+    string seatType;
+
+    ConcertTicket(int t, string p, double pr, string d, string dest, string a, string v, string s)
+        : Ticket(t, p, pr, d, dest) {
+        artistName = a;
+        venue = v;
+        seatType = s;
+    }
+
+    void displayTicketInfo() {
+        
+        Ticket::displayTicketInfo();
+        cout << "Artist: " << artistName << endl;
+        cout << "Venue: " << venue << endl;
+        cout << "Seat Type: " << seatType << endl;
+    }
+};
+
+int main() {
+   
+    FlightTicket ft(1, "Mahnoor Faisal", 500, "2025-06-10", "Dubai", "Emirates", "EK202", "Business");
+    TrainTicket tt(2, "Hadia Ilyas", 100, "2025-06-11", "Abu Dhabi", "TN789", "First Class", "08:00 AM");
+    BusTicket bt(3, "Arisha Faisal", 50, "2025-06-12", "Sharjah", "BusUAE", 22);
+    ConcertTicket ct(4, "Ayesha Nadeem", 200, "2025-06-15", "Dubai", "StarSinger", "Coca-Cola Arena", "VIP");
+    
+    ft.reserve();
+    ft.displayTicketInfo();
+
+    tt.reserve();
+    tt.displayTicketInfo();
+
+    bt.reserve();
+    bt.displayTicketInfo();
+
+    ct.reserve();
+    ct.displayTicketInfo();
+
+    return 0;
+}
