@@ -1,0 +1,179 @@
+#include <iostream> 
+using namespace std; 
+
+class Device {
+
+    public:
+
+    int deviceID; 
+    string deviceName; 
+    bool status; 
+    string location; 
+
+    Device(int d, string dN, string l) {
+        deviceID = d; 
+        deviceName = dN; 
+        status = false; 
+        location = l;
+    }
+
+    void turnOn() {
+        status = true;
+    }
+
+    void turnOff() {
+        status = false;
+    }
+
+    bool getStatus() {
+        return status;
+    }
+
+    void displayInfo() {
+        cout << "Device ID: " << deviceID << endl; 
+        cout << "Device Name: " << deviceName << endl; 
+        
+        if (status == true) {
+            cout << "Status: On" << endl;
+        } else {
+            cout << "Status: Off" << endl;
+        }
+        
+        cout << "Location: " << location << endl; 
+    }
+};
+
+class Light : public Device {
+
+    public: 
+
+    int brightnessLevel; 
+    int colorMode; 
+
+    Light(int d, string dN, string l, int b, int c) : Device(d, dN, l) {
+        brightnessLevel = b; 
+        colorMode = c;
+    }
+
+    void displayInfo() {
+        Device::displayInfo();
+        cout << "Brightness Level: " << brightnessLevel << endl; 
+        cout << "Color Mode: " << colorMode << endl; 
+    }
+};
+
+class Thermostat : public Device {
+
+    public: 
+
+    float temperature; 
+    bool mode; 
+    float targetTemperature; 
+
+    Thermostat(int d, string dN, string l, float t, float tt) : Device(d, dN, l) {
+        temperature = t; 
+        mode = false; 
+        targetTemperature = tt; 
+    }
+
+    bool getStatus() {
+        return mode; 
+    } 
+
+    void displayInfo() {
+        Device::displayInfo();
+        cout << "Temperature: " << temperature << "°C" << endl; 
+        
+        if (mode) {
+            cout << "Mode: Heating" << endl;
+        } else {
+            cout << "Mode: Cooling" << endl;
+        }
+        
+        cout << "Target Temperature: " << targetTemperature << "°C" << endl;
+    }
+};
+
+class SecurityCamera : public Device {
+
+    public: 
+
+    float resolution; 
+    bool recordingStatus;
+    bool nightVisionEnabled;
+
+    SecurityCamera(int d, string dN, string l, float r, bool nv) : Device(d, dN, l) {
+        resolution = r;
+        nightVisionEnabled = nv;
+        recordingStatus = false;
+    }
+
+    void turnOn() {
+        status = true;
+        recordingStatus = true;
+    }
+
+    void displayInfo() {
+        Device::displayInfo();
+        cout << "Resolution: " << resolution << " MP" << endl;
+        
+        if (recordingStatus) {
+            cout << "Recording Status: Recording" << endl;
+        } else {
+            cout << "Recording Status: Not Recording" << endl;
+        }
+        
+        if (nightVisionEnabled) {
+            cout << "Night Vision: Enabled" << endl;
+        } else {
+            cout << "Night Vision: Disabled" << endl;
+        }
+    }
+};
+
+class SmartPlug : public Device {
+
+    public:
+
+    float powerConsumption;
+    int timerSetting;
+
+    SmartPlug(int d, string dN, string l, float p, int t) : Device(d, dN, l) {
+        powerConsumption = p;
+        timerSetting = t;
+    }
+
+    void turnOff() {
+        status = false;
+        cout << "Power consumption logged: " << powerConsumption << "W" << endl;
+    }
+
+    void displayInfo() {
+        Device::displayInfo();
+        cout << "Power Consumption: " << powerConsumption << "W" << endl;
+        cout << "Timer Setting: " << timerSetting << " mins" << endl;
+    }
+};
+
+int main() {
+   
+    Light myLight(101, "Living Room Light", "Living Room", 75, 2);
+   
+    Thermostat myThermostat(102, "Smart Thermostat", "Hallway", 22.5, 24.0);
+   
+    SecurityCamera myCamera(103, "Front Door Camera", "Entrance", 1080, true);
+   
+    SmartPlug myPlug(104, "Kitchen Plug", "Kitchen", 1500, 30);
+
+    myLight.turnOn();
+    myThermostat.turnOn();
+    myCamera.turnOn();
+    myPlug.turnOn();
+
+    myLight.displayInfo();
+    myThermostat.displayInfo();
+    myCamera.displayInfo();
+    myPlug.displayInfo();
+
+    return 0;
+}
