@@ -1,0 +1,132 @@
+#include <iostream>
+using namespace std;
+
+class Character {
+
+    public:
+
+    int characterID;
+    string name;
+    int level;
+    int healthPoints;
+    string weaponType;
+
+    Character(int c, string n, int l, int h, string w) {
+        characterID = c;
+        name = n;
+        level = l;
+        healthPoints = h;
+        weaponType = w;
+    }
+
+    void attack() {
+        cout << name << " attacks!" << endl;
+    }
+
+    void defend() {
+        cout << name << " defends!" << endl;
+    }
+
+    void displayStats() {
+        cout << "Character ID: " << characterID << endl;
+        cout << "Name: " << name << endl;
+        cout << "Level: " << level << endl;
+        cout << "Health Points: " << healthPoints << endl;
+        cout << "Weapon Type: " << weaponType << endl;
+    }
+};
+
+class Warrior : public Character {
+
+    public:
+
+    int armorStrength;
+    int meleeDamage;
+
+    Warrior(int c, string n, int l, int h, string w, int a, int m)
+        : Character(c, n, l, h, w) {
+        armorStrength = a;
+        meleeDamage = m;
+    }
+
+    void attack() {
+        cout << name << " performs a powerful melee attack!" << endl;
+    }
+};
+
+class Mage : public Character {
+
+    public:
+
+    int manaPoints;
+    int spellPower;
+
+    Mage(int c, string n, int l, int h, string w, int m, int s)
+        : Character(c, n, l, h, w) {
+        manaPoints = m;
+        spellPower = s;
+    }
+
+    void defend() {
+        cout << name << " uses a magical barrier to defend!" << endl;
+    }
+};
+
+class Archer : public Character {
+
+    public:
+
+    int arrowCount;
+    int rangedAccuracy;
+
+    Archer(int c, string n, int l, int h, string w, int a, int r)
+        : Character(c, n, l, h, w) {
+        arrowCount = a;
+        rangedAccuracy = r;
+    }
+
+    void attack() {
+        cout << name << " fires an arrow from a distance!" << endl;
+    }
+};
+
+class Rogue : public Character {
+
+    public:
+
+    int stealthLevel;
+    int agility;
+
+    Rogue(int c, string n, int l, int h, string w, int s, int a)
+        : Character(c, n, l, h, w) {
+        stealthLevel = s;
+        agility = a;
+    }
+
+    void displayStats() {
+        Character::displayStats();
+        cout << "Stealth Level: " << stealthLevel << endl;
+        cout << "Agility: " << agility << endl;
+    }
+};
+
+int main() {
+    
+    Warrior w(1, "Aragorn", 10, 150, "Sword", 50, 40);
+    Mage m(2, "Gandalf", 15, 100, "Staff", 200, 80);
+    Archer a(3, "Legolas", 12, 120, "Bow", 30, 90);
+    Rogue r(4, "Altair", 14, 110, "Dagger", 80, 95);
+
+    w.attack();
+    w.displayStats();
+
+    m.defend();
+    m.displayStats();
+
+    a.attack();
+    a.displayStats();
+
+    r.displayStats();
+
+    return 0;
+}
